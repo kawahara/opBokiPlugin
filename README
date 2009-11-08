@@ -1,0 +1,28 @@
+============
+opBokiPlugin 
+============
+
+Copyright 2009 Shogo Kawahara
+
+OVERVIEW
+--------
+
+このプラグインは、OpenPNE3上で家計簿（複式）を実現するためのものです。
+日々の生活を財政的な面から記録・共有することができます。
+
+This plug-in is used to achieve the household account book (by double-entry bookkeeping) on the OpenPNE3.
+Your life of every day can be recorded and be shared from financial respect.
+
+LICENSE
+-------
+
+see LICENSE file
+
+Q&A
+---
+
+Q. 誰が得するの
+A. 主においら
+
+Q. 何で複式なの
+A. 美しいだろ
