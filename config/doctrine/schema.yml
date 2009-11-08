@@ -1,0 +1,50 @@
+options:
+  charset: utf8
+
+BokiAccount:
+  actAs: [Timestampable]
+  columns:
+    name: { type: string(128), notnull: true }
+    is_preset:  { type: boolean, notnull: true, default: false }
+    is_private: { type: boolean, notnull: true, default: false }
+    member_id:  { type: integer(4), notnull: false }
+    type:       { type: integer(1), notnull: true }
+    cf_type:    { type: integer(1), notnull: true }
+  relations:
+    Member: { local: member_id, class: Member, foreign: id, onDelete: set null }
+
+BokiAccountLog:
+  columns:
+    member_id:  { type: integer(4), notnull: true }
+    account_id: { type: integer, notnull: true }
+    sort_order: { type: integer, notnull: true }
+  indexes:
+    member_account_UNIQUE:
+      fields: [member_id, account_id]
+      type: unique
+  relations:
+    Member:  { local: member_id, class: Member, foreign: id, onDelete: cascade }
+    Account: { local: account_id, class: opBokiAccount, foreign: id, onDelete: cascade }
+
+BokiJournal:
+  actAs: [Timestampable]
+  columns:
+    member_id:         { type: integer(4), notnull: true }
+    debit_account_id:  { type: integer, notnull: true }
+    credit_account_id: { type: integer, notnull: true }
+    value:             { type: integer }
+    date:              { type: date }
+    comment:           { type: string }
+    public_flag:       { type: integer(1) }
+    parent_id:         { type: integer }
+  relations:
+    Member:        { local: member_id, class: Member, foreign: id }
+    DebitAccount:  { local: debit_account_id, class: opBokiAccount, foreign: id }
+    CreditAccount: { local: credit_account_id, class: opBokiAccount, foreign: id }
+
+BokiResultCache:
+  actAs: [Timestampable]
+  columns:
+    member_id:         { type: integer(4), notnull: true }
+    name:              { type: string(128) }
+    value:             { type: array }
